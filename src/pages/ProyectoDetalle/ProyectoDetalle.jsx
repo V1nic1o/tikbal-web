@@ -25,7 +25,7 @@ export default function ProyectoDetalle() {
       if (proyecto?.imagenes?.length > 0) {
         setImagenActual((prev) => (prev + 1) % proyecto.imagenes.length);
       }
-    }, 5000);
+    }, 10000);
     return () => clearInterval(interval);
   }, [proyecto]);
 

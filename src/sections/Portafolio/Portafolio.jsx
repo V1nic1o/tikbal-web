@@ -35,7 +35,7 @@ export default function Portafolio() {
   useEffect(() => {
     const interval = setInterval(() => {
       instanceRef.current?.next();
-    }, 5000);
+    }, 10000);
     return () => clearInterval(interval);
   }, [instanceRef]);
 
