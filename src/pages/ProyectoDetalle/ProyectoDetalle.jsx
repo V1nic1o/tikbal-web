@@ -19,15 +19,6 @@ export default function ProyectoDetalle() {
       .catch((err) => console.error('Error al cargar el proyecto', err));
   }, [id]);
 
-  // ⏱️ Autoplay cada 5 segundos
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (proyecto?.imagenes?.length > 0) {
-        setImagenActual((prev) => (prev + 1) % proyecto.imagenes.length);
-      }
-    }, 7000);
-    return () => clearInterval(interval);
-  }, [proyecto]);
 
   const siguienteImagen = () => {
     setImagenActual((prev) => (prev + 1) % proyecto.imagenes.length);

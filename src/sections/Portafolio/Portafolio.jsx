@@ -31,14 +31,6 @@ export default function Portafolio() {
     },
   });
 
-  // ⏱️ Autoplay
-  useEffect(() => {
-    const interval = setInterval(() => {
-      instanceRef.current?.next();
-    }, 7000);
-    return () => clearInterval(interval);
-  }, [instanceRef]);
-
   // 🔄 Cargar proyectos
   useEffect(() => {
     api.get('/proyectos')
