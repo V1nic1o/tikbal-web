@@ -3,9 +3,29 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
+import 'keen-slider/keen-slider.min.css';
+import { useKeenSlider } from 'keen-slider/react';
 
 export default function Portafolio() {
   const [proyectos, setProyectos] = useState([]);
+  const [sliderRef, instanceRef] = useKeenSlider({
+    loop: true,
+    mode: 'snap',
+    slides: { perView: 1 },
+    breakpoints: {
+      '(min-width: 768px)': {
+        slides: { perView: 1 },
+      },
+    },
+    created: () => setTimeout(() => updateDots(), 100),
+    slideChanged: (slider) => updateDots(slider.track.details.rel),
+  });
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const updateDots = (index = 0) => {
+    setCurrentSlide(index);
+  };
 
   useEffect(() => {
     api.get('/proyectos')
@@ -35,39 +55,46 @@ export default function Portafolio() {
         Hemos trabajado con clientes que comparten nuestra visión de sostenibilidad y belleza natural. Estos son algunos de los proyectos destacados:
       </motion.p>
 
-      <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
-        initial="hidden"
-        whileInView="visible"
-        transition={{ staggerChildren: 0.2 }}
-        viewport={{ once: true }}
-      >
+      <div ref={sliderRef} className="keen-slider max-w-6xl mx-auto">
         {proyectos.map((proy, i) => (
           <motion.div
             key={proy.id}
-            className="relative group overflow-hidden rounded-xl shadow-md hover:shadow-xl transition duration-300"
+            className="keen-slider__slide relative overflow-hidden rounded-xl group"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: i * 0.1 }}
           >
-            <Link to={`/proyecto/${proy.id}`} className="block h-full">
+            <Link to={`/proyecto/${proy.id}`} className="block h-full w-full">
               <img
                 src={proy.imagenes?.[0]}
                 alt={proy.nombre}
-                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full h-[70vh] object-contain sm:object-cover transition-transform duration-500 group-hover:scale-105"
               />
-
-              {/* Capa overlay: visible en hover (desktop) y siempre visible en móvil */}
-              <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center transition duration-300
-                opacity-100 sm:opacity-0 sm:group-hover:opacity-100">
-                <h3 className="text-xl font-semibold text-white text-center px-4">
-                  {proy.nombre}
-                </h3>
+              <div
+                className={`
+                  absolute inset-0 flex items-center justify-center text-white text-center px-4 transition-opacity duration-300
+                  bg-black/40 backdrop-blur-sm
+                  sm:opacity-0 sm:group-hover:opacity-100
+                `}
+              >
+                <h3 className="text-xl font-semibold">{proy.nombre}</h3>
               </div>
             </Link>
           </motion.div>
         ))}
-      </motion.div>
+      </div>
+
+      <div className="flex justify-center mt-6 gap-2">
+        {proyectos.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => instanceRef.current?.moveToIdx(idx)}
+            className={`w-3 h-3 rounded-full transition-transform duration-300 ${
+              currentSlide === idx ? 'bg-primary scale-125' : 'bg-gray-300 hover:bg-gray-400'
+            }`}
+          ></button>
+        ))}
+      </div>
     </section>
   );
 }
