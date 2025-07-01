@@ -1,6 +1,5 @@
-// src/pages/ProyectoDetalle.jsx
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -15,7 +14,6 @@ import WhatsAppBubble from '../WhatsAppBubble/WhatsAppBubble';
 
 export default function ProyectoDetalle() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [proyecto, setProyecto] = useState(null);
   const [imagenActual, setImagenActual] = useState(0);
 
@@ -36,6 +34,10 @@ export default function ProyectoDetalle() {
     );
   };
 
+  const irAPortafolio = () => {
+    window.location.href = '/#portafolio';
+  };
+
   if (!proyecto) {
     return (
       <div className="text-center py-20 text-lg text-gray-600">
@@ -54,17 +56,17 @@ export default function ProyectoDetalle() {
         {/* Cabecera */}
         <div className="flex justify-between items-center mb-6">
           <button
-            onClick={() => navigate(-1)}
+            onClick={irAPortafolio}
             className="flex items-center text-primary hover:underline text-sm font-medium"
           >
             <FaArrowLeft className="mr-2" /> Volver
           </button>
-          <Link
-            to="/#portafolio"
+          <button
+            onClick={irAPortafolio}
             className="flex items-center text-sm text-primary hover:text-secondary transition"
           >
             <FaHome className="mr-1" /> Ir al inicio
-          </Link>
+          </button>
         </div>
 
         {/* Contenido */}
@@ -85,7 +87,6 @@ export default function ProyectoDetalle() {
                 />
               </AnimatePresence>
 
-              {/* Flechas */}
               <button
                 onClick={anteriorImagen}
                 className="absolute top-1/2 left-2 -translate-y-1/2 bg-white/80 hover:bg-white text-primary p-2 rounded-full shadow-md transition"
@@ -102,7 +103,6 @@ export default function ProyectoDetalle() {
                 <FaChevronRight />
               </button>
 
-              {/* Indicadores */}
               <div className="flex justify-center gap-2 mt-5">
                 {proyecto.imagenes.map((_, index) => (
                   <button

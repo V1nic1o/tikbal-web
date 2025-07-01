@@ -1,5 +1,10 @@
-// src/App.jsx
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from 'react-router-dom';
 import Hero from './sections/Hero/Hero';
 import About from './sections/About/About';
 import Servicios from './sections/Servicios/Servicios';
@@ -12,17 +17,36 @@ import './index.css';
 import WhatsAppBubble from './pages/WhatsAppBubble/WhatsAppBubble';
 import Header from './components/Header/Header';
 
+function ScrollToHashElement() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const hash = location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        // scroll suave al elemento anclado
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location]);
+
+  return null;
+}
+
 function Home() {
   return (
     <div className="bg-beige min-h-screen text-gray-800 font-sans">
-      <Header/>
+      <Header />
       <Hero />
       <Servicios />
       <Portafolio />
       <About />
       <Contacto />
       <Footer />
-      <WhatsAppBubble/>
+      <WhatsAppBubble />
     </div>
   );
 }
@@ -30,6 +54,7 @@ function Home() {
 export default function App() {
   return (
     <Router>
+      <ScrollToHashElement />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/proyecto/:id" element={<ProyectoDetalle />} />
