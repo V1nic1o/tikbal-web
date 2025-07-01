@@ -1,4 +1,3 @@
-// src/sections/Portafolio/Portafolio.jsx
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
@@ -55,7 +54,7 @@ export default function Portafolio() {
             <div key={proy.id} className="keen-slider__slide slide-custom relative overflow-hidden rounded-xl group">
               <Link to={`/proyecto/${proy.id}`} className="block h-full w-full">
                 <img
-                  src={proy.imagenes?.[0]}
+                  src={proy.imagenes?.[0] || '/fallback.jpg'}
                   alt={proy.nombre}
                   className="w-full h-[70vh] object-cover transition-transform duration-500 group-hover:scale-105"
                 />
