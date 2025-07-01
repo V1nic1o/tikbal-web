@@ -9,6 +9,7 @@ import Footer from './sections/Footer/Footer';
 import ProyectoDetalle from './pages/ProyectoDetalle/ProyectoDetalle';
 
 import './index.css';
+import WhatsAppBubble from './pages/WhatsAppBubble/WhatsAppBubble';
 
 function Home() {
   return (
@@ -19,6 +20,7 @@ function Home() {
       <Portafolio />
       <Contacto />
       <Footer />
+      <WhatsAppBubble/>
     </div>
   );
 }

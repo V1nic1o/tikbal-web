@@ -43,10 +43,8 @@ export default function About() {
         transition={{ duration: 0.8, delay: 0.2 }}
         viewport={{ once: true }}
       >
-        Ayudamos a nuestros clientes a crear y mantener jardines espectaculares, saludables y sostenibles,
-        utilizando principios de agricultura ecológica, permacultura y prácticas orgánicas avanzadas.
-        Diseñamos cada servicio pensando en las necesidades específicas de cada proyecto, garantizando
-        un enfoque completamente personalizado desde el diagnóstico hasta la ejecución.
+        Creamos y cuidamos jardines espectaculares y sostenibles con un enfoque personalizado, 
+        aplicando principios ecológicos, permacultura y prácticas orgánicas.
       </motion.p>
 
       <motion.div
