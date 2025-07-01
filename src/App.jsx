@@ -10,10 +10,12 @@ import ProyectoDetalle from './pages/ProyectoDetalle/ProyectoDetalle';
 
 import './index.css';
 import WhatsAppBubble from './pages/WhatsAppBubble/WhatsAppBubble';
+import Header from './components/Header/Header';
 
 function Home() {
   return (
     <div className="bg-beige min-h-screen text-gray-800 font-sans">
+      <Header/>
       <Hero />
       <About />
       <Servicios />

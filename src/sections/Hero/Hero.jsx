@@ -11,7 +11,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden font-sans scroll-smooth">
+    <section id="hero" className="relative h-screen w-full overflow-hidden font-sans scroll-smooth">
       {/* Fondo animado */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center scale-110"
@@ -43,33 +43,6 @@ export default function Hero() {
           Descubre más
         </motion.button>
       </motion.div>
-
-      {/* Navegación fija */}
-      <nav className="absolute top-0 left-0 w-full flex items-center justify-between px-6 py-4 z-20 backdrop-blur-sm bg-black/30 sm:bg-transparent">
-        <span className="text-white font-bold text-xl tracking-wide">Tikb’al</span>
-        <ul className="hidden sm:flex gap-6 text-white font-medium text-sm">
-          <li>
-            <button onClick={() => scrollTo('#nosotros')} className="hover:underline">
-              Nosotros
-            </button>
-          </li>
-          <li>
-            <button onClick={() => scrollTo('#servicios')} className="hover:underline">
-              Servicios
-            </button>
-          </li>
-          <li>
-            <button onClick={() => scrollTo('#portafolio')} className="hover:underline">
-              Portafolio
-            </button>
-          </li>
-          <li>
-            <button onClick={() => scrollTo('#contacto')} className="hover:underline">
-              Contacto
-            </button>
-          </li>
-        </ul>
-      </nav>
     </section>
   );
 }

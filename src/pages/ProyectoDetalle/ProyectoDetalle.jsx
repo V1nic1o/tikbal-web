@@ -5,6 +5,8 @@ import api from '../../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowLeft, FaChevronLeft, FaChevronRight, FaHome } from 'react-icons/fa';
 import Footer from '../../sections/Footer/Footer';
+import Header from '../../components/Header/Header';
+import WhatsAppBubble from '../../Pages/WhatsAppBubble/WhatsAppBubble';
 
 export default function ProyectoDetalle() {
   const { id } = useParams();
@@ -18,7 +20,6 @@ export default function ProyectoDetalle() {
       .then((res) => setProyecto(res.data))
       .catch((err) => console.error('Error al cargar el proyecto', err));
   }, [id]);
-
 
   const siguienteImagen = () => {
     setImagenActual((prev) => (prev + 1) % proyecto.imagenes.length);
@@ -34,6 +35,10 @@ export default function ProyectoDetalle() {
 
   return (
     <>
+      {/* Header flotante */}
+      <Header />
+
+      {/* Contenido principal */}
       <section className="bg-white px-4 sm:px-6 md:px-16 py-10 min-h-[calc(100vh-100px)]">
         {/* Cabecera */}
         <div className="flex justify-between items-center mb-6">
@@ -132,6 +137,9 @@ export default function ProyectoDetalle() {
       <div className="bg-white px-4 sm:px-6 md:px-16 pt-10">
         <Footer />
       </div>
+
+      {/* Burbuja de WhatsApp */}
+      <WhatsAppBubble />
     </>
   );
 }
