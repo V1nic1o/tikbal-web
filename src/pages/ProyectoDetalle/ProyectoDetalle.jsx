@@ -3,7 +3,12 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import api from '../../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowLeft, FaChevronLeft, FaChevronRight, FaHome } from 'react-icons/fa';
+import {
+  FaArrowLeft,
+  FaChevronLeft,
+  FaChevronRight,
+  FaHome,
+} from 'react-icons/fa';
 import Footer from '../../sections/Footer/Footer';
 import Header from '../../components/Header/Header';
 import WhatsAppBubble from '../WhatsAppBubble/WhatsAppBubble';
@@ -26,20 +31,26 @@ export default function ProyectoDetalle() {
   };
 
   const anteriorImagen = () => {
-    setImagenActual((prev) => (prev - 1 + proyecto.imagenes.length) % proyecto.imagenes.length);
+    setImagenActual(
+      (prev) => (prev - 1 + proyecto.imagenes.length) % proyecto.imagenes.length
+    );
   };
 
   if (!proyecto) {
-    return <div className="text-center py-20 text-lg text-gray-600">Cargando proyecto...</div>;
+    return (
+      <div className="text-center py-20 text-lg text-gray-600">
+        Cargando proyecto...
+      </div>
+    );
   }
 
   return (
     <>
       {/* Header flotante */}
-      <Header />
+      <Header redireccionarConHash />
 
       {/* Contenido principal */}
-      <section className="bg-white px-4 sm:px-6 md:px-16 py-10 min-h-[calc(100vh-100px)]">
+      <section className="bg-white px-4 sm:px-6 md:px-16 pt-28 pb-10 min-h-[calc(100vh-100px)]">
         {/* Cabecera */}
         <div className="flex justify-between items-center mb-6">
           <button
@@ -49,7 +60,7 @@ export default function ProyectoDetalle() {
             <FaArrowLeft className="mr-2" /> Volver
           </button>
           <Link
-            to="/"
+            to="/#portafolio"
             className="flex items-center text-sm text-primary hover:text-secondary transition"
           >
             <FaHome className="mr-1" /> Ir al inicio

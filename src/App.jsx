@@ -17,9 +17,9 @@ function Home() {
     <div className="bg-beige min-h-screen text-gray-800 font-sans">
       <Header/>
       <Hero />
-      <About />
       <Servicios />
       <Portafolio />
+      <About />
       <Contacto />
       <Footer />
       <WhatsAppBubble/>
