@@ -8,3 +8,10 @@
     background-color: theme('colors.beige');
   }
 }
+
+/* ✅ Forzar que cada slide ocupe el 100% del ancho para evitar que se vean dos a la vez */
+.slide-custom {
+  min-width: 100% !important;
+  max-width: 100% !important;
+  flex: 0 0 100% !important;
+}

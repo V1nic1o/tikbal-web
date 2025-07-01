@@ -14,7 +14,7 @@ export default function Portafolio() {
     loop: true,
     mode: 'snap',
     slides: {
-      perView: 1, // ✅ Forzamos que siempre muestre solo 1 slide
+      perView: 1,
       spacing: 0,
     },
     defaultAnimation: {
@@ -30,7 +30,6 @@ export default function Portafolio() {
     api.get('/proyectos')
       .then((res) => {
         setProyectos(res.data);
-        // actualizar slider para recalcular slides
         setTimeout(() => instanceRef.current?.update(), 0);
       })
       .catch(console.error);
@@ -53,7 +52,7 @@ export default function Portafolio() {
       <div className="relative max-w-6xl mx-auto">
         <div ref={sliderRef} className="keen-slider">
           {proyectos.map((proy) => (
-            <div key={proy.id} className="keen-slider__slide relative overflow-hidden rounded-xl group">
+            <div key={proy.id} className="keen-slider__slide slide-custom relative overflow-hidden rounded-xl group">
               <Link to={`/proyecto/${proy.id}`} className="block h-full w-full">
                 <img
                   src={proy.imagenes?.[0]}
