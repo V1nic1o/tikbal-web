@@ -13,10 +13,13 @@ export default function Portafolio() {
   const [sliderRef, instanceRef] = useKeenSlider({
     loop: true,
     mode: 'snap',
-    slides: { perView: 1, spacing: 0 },
+    slides: {
+      perView: 1, // ✅ Forzamos que siempre muestre solo 1 slide
+      spacing: 0,
+    },
     defaultAnimation: {
       duration: 700,
-      easing: (t) => t, // easing lineal
+      easing: (t) => t,
     },
     slideChanged(slider) {
       setCurrentSlide(slider.track.details.rel);
