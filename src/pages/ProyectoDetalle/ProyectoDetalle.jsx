@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowLeft, FaChevronLeft, FaChevronRight, FaHome } from 'react-icons/fa';
 import Footer from '../../sections/Footer/Footer';
 import Header from '../../components/Header/Header';
-import WhatsAppBubble from '../../Pages/WhatsAppBubble/WhatsAppBubble';
+import WhatsAppBubble from '../WhatsAppBubble/WhatsAppBubble';
 
 export default function ProyectoDetalle() {
   const { id } = useParams();
