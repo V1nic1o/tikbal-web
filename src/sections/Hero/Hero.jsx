@@ -42,13 +42,34 @@ export default function Hero() {
 
           <ul className="text-base sm:text-lg text-gray-700 space-y-3 mb-8">
             <li className="flex items-center gap-2 justify-center lg:justify-start">
-              <FaLeaf className="text-terracota text-xl shrink-0" /> Diseño ecológico personalizado
+              <motion.div
+                className="text-terracota text-xl shrink-0"
+                animate={{ y: [0, -6, 0] }}
+                transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+              >
+                <FaLeaf />
+              </motion.div>
+              Diseño ecológico personalizado
             </li>
             <li className="flex items-center gap-2 justify-center lg:justify-start">
-              <FaSeedling className="text-terracota text-xl shrink-0" /> Regeneración del suelo y asesoría
+              <motion.div
+                className="text-terracota text-xl shrink-0"
+                animate={{ y: [0, -6, 0] }}
+                transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
+              >
+                <FaSeedling />
+              </motion.div>
+              Regeneración del suelo y asesoría
             </li>
             <li className="flex items-center gap-2 justify-center lg:justify-start">
-              <FaTools className="text-terracota text-xl shrink-0" /> Mantenimiento orgánico integral
+              <motion.div
+                className="text-terracota text-xl shrink-0"
+                animate={{ y: [0, -6, 0] }}
+                transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+              >
+                <FaTools />
+              </motion.div>
+              Mantenimiento orgánico integral
             </li>
           </ul>
 
