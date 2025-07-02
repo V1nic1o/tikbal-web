@@ -1,3 +1,4 @@
+// src/sections/Portafolio/Portafolio.jsx
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
@@ -29,14 +30,22 @@ export default function Portafolio() {
     api.get('/proyectos')
       .then((res) => {
         setProyectos(res.data);
-        setTimeout(() => instanceRef.current?.update(), 0);
+
+        // ✅ Esperar a que los elementos se monten completamente antes de actualizar el slider
+        setTimeout(() => {
+          if (instanceRef.current && instanceRef.current.update) {
+            instanceRef.current.update();
+          }
+        }, 150);
       })
       .catch(console.error);
   }, []);
 
   const moverASlide = (dir) => {
-    if (!instanceRef.current) return;
-    dir === 'prev' ? instanceRef.current.prev() : instanceRef.current.next();
+    if (instanceRef.current) {
+      if (dir === 'prev') instanceRef.current.prev();
+      else instanceRef.current.next();
+    }
   };
 
   return (
@@ -49,22 +58,27 @@ export default function Portafolio() {
       </p>
 
       <div className="relative max-w-6xl mx-auto">
-        <div ref={sliderRef} className="keen-slider">
-          {proyectos.map((proy) => (
-            <div key={proy.id} className="keen-slider__slide slide-custom relative overflow-hidden rounded-xl group">
-              <Link to={`/proyecto/${proy.id}`} className="block h-full w-full">
-                <img
-                  src={proy.imagenes?.[0] || '/fallback.jpg'}
-                  alt={proy.nombre}
-                  className="w-full h-[70vh] object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 flex items-center justify-center text-white text-center px-4 bg-black/40 backdrop-blur-sm sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
-                  <h3 className="text-xl font-semibold">{proy.nombre}</h3>
-                </div>
-              </Link>
-            </div>
-          ))}
-        </div>
+        {proyectos.length > 0 && (
+          <div ref={sliderRef} className="keen-slider">
+            {proyectos.map((proy) => (
+              <div
+                key={proy.id}
+                className="keen-slider__slide slide-custom relative overflow-hidden rounded-xl group"
+              >
+                <Link to={`/proyecto/${proy.id}`} className="block h-full w-full">
+                  <img
+                    src={proy.imagenes?.[0] || '/fallback.jpg'}
+                    alt={proy.nombre}
+                    className="w-full h-[70vh] object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center text-white text-center px-4 bg-black/40 backdrop-blur-sm sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                    <h3 className="text-xl font-semibold">{proy.nombre}</h3>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+        )}
 
         <button
           onClick={() => moverASlide('prev')}
@@ -84,7 +98,11 @@ export default function Portafolio() {
         {proyectos.map((_, idx) => (
           <button
             key={idx}
-            onClick={() => instanceRef.current?.moveToIdx(idx)}
+            onClick={() => {
+              if (instanceRef.current && instanceRef.current.moveToIdx) {
+                instanceRef.current.moveToIdx(idx);
+              }
+            }}
             className={`w-3 h-3 rounded-full transition-transform duration-300 ${
               currentSlide === idx ? 'bg-primary scale-125' : 'bg-gray-300 hover:bg-gray-400'
             }`}
