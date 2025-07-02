@@ -4,17 +4,17 @@ import { FaSearch, FaUsers, FaLeaf } from 'react-icons/fa';
 
 const METODOS = [
   {
-    icon: <FaSearch className="text-4xl text-[#003366] mb-4" />,
+    icon: <FaSearch className="text-white text-xl" />,
     title: 'Diagnóstico Inicial',
     desc: 'Reunión para conocer tus necesidades y condiciones del jardín. A partir de ahí, elaboramos una propuesta única.',
   },
   {
-    icon: <FaUsers className="text-4xl text-[#003366] mb-4" />,
+    icon: <FaUsers className="text-white text-xl" />,
     title: 'Trabajo en Equipo',
     desc: 'Entrenamos a tu personal y colaboramos con tu equipo para lograr resultados duraderos.',
   },
   {
-    icon: <FaLeaf className="text-4xl text-[#003366] mb-4" />,
+    icon: <FaLeaf className="text-white text-xl" />,
     title: 'Sustentabilidad del Suelo',
     desc: 'Regeneramos el ecosistema natural del jardín comenzando desde la base: el suelo.',
   },
@@ -48,7 +48,7 @@ export default function About() {
       </motion.p>
 
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto"
+        className="grid grid-cols-1 gap-6 max-w-4xl mx-auto"
         initial="hidden"
         whileInView="visible"
         transition={{ staggerChildren: 0.2 }}
@@ -57,16 +57,22 @@ export default function About() {
         {METODOS.map((item, index) => (
           <motion.div
             key={index}
-            className="bg-gradient-to-br from-[#e3d8c9] to-[#f4ede3] text-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition duration-300"
+            className="flex items-start bg-white shadow-md rounded-2xl px-6 py-5 text-left border border-gray-200"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.2 }}
           >
-            {item.icon}
-            <h3 className="text-xl font-bold bg-gradient-to-r from-[#003366] to-[#5a87aa] bg-clip-text text-transparent mb-2">
-              {item.title}
-            </h3>
-            <p className="text-sm leading-relaxed">{item.desc}</p>
+            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-r from-[#003366] to-[#5a7f8c] flex items-center justify-center mr-4 shadow-sm">
+              {item.icon}
+            </div>
+            <div>
+              <h3 className="text-base sm:text-lg font-semibold text-[#003366] mb-1">
+                {item.title}
+              </h3>
+              <p className="text-sm text-gray-700 leading-relaxed italic border-l-4 border-gray-300 pl-3">
+                {item.desc}
+              </p>
+            </div>
           </motion.div>
         ))}
       </motion.div>

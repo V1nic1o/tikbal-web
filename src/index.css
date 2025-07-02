@@ -9,9 +9,23 @@
   }
 }
 
-/* ✅ Forzar que cada slide ocupe el 100% del ancho para evitar que se vean dos a la vez */
+/* ✅ Forzar que cada slide ocupe el 100% del ancho para Swiper o similares */
 .slide-custom {
   min-width: 100% !important;
   max-width: 100% !important;
   flex: 0 0 100% !important;
+}
+
+/* ✅ Animación tipo marquee infinita */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* Solo -50% porque duplicamos los elementos */
+  }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
 }

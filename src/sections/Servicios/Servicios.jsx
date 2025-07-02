@@ -1,4 +1,3 @@
-// src/sections/Servicios/Servicios.jsx
 import { useEffect, useState } from 'react';
 import { FaSpinner } from 'react-icons/fa';
 import api from '../../services/api';
@@ -19,6 +18,8 @@ export default function Servicios() {
       });
   }, []);
 
+  const serviciosDuplicados = [...servicios, ...servicios];
+
   return (
     <section id="servicios" className="bg-gradient-to-b from-[#f2e8da] to-[#e5dbcb] py-20 px-6 md:px-16 text-center">
       <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-[#003366] to-[#5a7f8c] bg-clip-text text-transparent mb-6">
@@ -26,8 +27,32 @@ export default function Servicios() {
       </h2>
 
       <p className="max-w-3xl mx-auto text-lg text-gray-800 mb-12">
-        Te ofrecemos soluciones especializadas para cada etapa de tu jardín, desde su creación hasta su mantenimiento, siempre con insumos de alta calidad y compromiso ecológico.
+        Soluciones ecológicas para crear y cuidar tu jardín con calidad y conciencia.
       </p>
+
+      {!cargando && servicios.length > 0 && (
+        <div className="overflow-hidden py-6 mb-12 bg-white/60 rounded-xl shadow-inner group">
+          <div className="flex gap-6 px-4 animate-marquee group-hover:[animation-play-state:paused] w-max">
+            {serviciosDuplicados.map((serv, i) =>
+              serv.imagenes?.[0] ? (
+                <div
+                  key={i}
+                  className="relative flex-shrink-0 w-64 h-40 rounded-xl overflow-hidden shadow-md bg-black/10 border border-gray-300"
+                >
+                  <img
+                    src={serv.imagenes[0]}
+                    alt={serv.nombre}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white font-medium text-base px-4 text-center">
+                    {serv.nombre}
+                  </div>
+                </div>
+              ) : null
+            )}
+          </div>
+        </div>
+      )}
 
       {cargando ? (
         <div className="flex justify-center items-center h-40">
@@ -38,19 +63,21 @@ export default function Servicios() {
           {servicios.map((servicio, index) => (
             <div
               key={servicio.id || index}
-              className="bg-gradient-to-br from-[#ffffff] to-[#f5f0ea] border border-gray-200 p-6 rounded-2xl shadow-md hover:shadow-xl transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.02]"
+              className="bg-white border border-gray-200 p-6 rounded-2xl shadow-lg text-left hover:border-[#0b3e7a]/30 transition"
             >
-              {servicio.imagenes?.[0] && (
-                <img
-                  src={servicio.imagenes[0]}
-                  alt={servicio.nombre}
-                  className="w-20 h-20 object-cover rounded-full mx-auto mb-4 border border-gray-300 shadow-sm"
-                />
-              )}
-              <h3 className="text-xl font-bold bg-gradient-to-r from-[#003366] to-[#5a7f8c] bg-clip-text text-transparent mb-2">
-                {servicio.nombre}
-              </h3>
-              <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+              <div className="flex items-center gap-4 mb-4">
+                {servicio.imagenes?.[0] && (
+                  <img
+                    src={servicio.imagenes[0]}
+                    alt={servicio.nombre}
+                    className="w-16 h-16 object-cover rounded-full border border-gray-300 shadow-sm"
+                  />
+                )}
+                <h3 className="text-lg font-bold text-[#0b3e7a]">
+                  {servicio.nombre}
+                </h3>
+              </div>
+              <p className="text-gray-700 text-sm leading-relaxed border-l-4 border-[#0b3e7a]/20 pl-4 italic">
                 {servicio.descripcion}
               </p>
             </div>

@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaUser, FaEnvelope, FaCommentDots } from 'react-icons/fa';
+import {
+  FaUser,
+  FaEnvelope,
+  FaCommentDots,
+  FaFacebookF,
+  FaInstagram,
+  FaXTwitter,
+} from 'react-icons/fa6';
+import { FaPhoneAlt } from 'react-icons/fa';
 import api from '../../services/api';
 
 export default function Contacto() {
@@ -32,89 +40,140 @@ export default function Contacto() {
   };
 
   return (
-    <section id="contacto" className="bg-beige py-20 px-6 md:px-16">
-      <motion.h2
-        className="text-3xl md:text-5xl font-bold text-primary text-center mb-8"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        Contáctanos
-      </motion.h2>
-
-      <motion.p
-        className="max-w-2xl mx-auto text-center text-lg text-gray-700 mb-12"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        viewport={{ once: true }}
-      >
-        ¿Tienes preguntas o deseas una propuesta personalizada? Llena el siguiente formulario y te responderemos pronto.
-      </motion.p>
-
-      <form
-        className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6"
-        onSubmit={handleSubmit}
-      >
-        {/* Nombre */}
-        <div className="relative">
-          <FaUser className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-          <input
-            type="text"
-            name="nombre"
-            value={formulario.nombre}
-            onChange={handleChange}
-            placeholder="Nombre completo"
-            className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary transition"
-            required
+    <section id="contacto" className="bg-beige py-20 px-4 md:px-10">
+      <div className="max-w-7xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-gray-200 bg-gradient-to-br from-[#0b3e7a] to-[#5a7f8c] text-white px-6 md:px-12 py-12 flex flex-col md:flex-row gap-10 items-center">
+        
+        {/* 📸 Imagen */}
+        <div className="w-full md:w-1/2">
+          <img
+            src="/FONDO.jpg"
+            alt="Soporte técnico"
+            className="w-full h-full object-cover rounded-2xl shadow-lg"
           />
         </div>
 
-        {/* Correo */}
-        <div className="relative">
-          <FaEnvelope className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-          <input
-            type="email"
-            name="correo"
-            value={formulario.correo}
-            onChange={handleChange}
-            placeholder="Correo electrónico"
-            className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary transition"
-            required
-          />
+        {/* 📬 Formulario */}
+        <div className="w-full md:w-1/2 flex flex-col justify-center">
+          <motion.div
+            className="flex items-center justify-between mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold">Contáctanos</h2>
+            <div className="flex gap-4 text-white text-xl">
+              <a
+                href="https://www.instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="hover:text-white/70 animate-bounce"
+              >
+                <FaInstagram />
+              </a>
+              <a
+                href="https://www.facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="hover:text-white/70 animate-bounce [animation-delay:0.2s]"
+              >
+                <FaFacebookF />
+              </a>
+              <a
+                href="https://x.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X"
+                className="hover:text-white/70 animate-bounce [animation-delay:0.4s]"
+              >
+                <FaXTwitter />
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Datos de contacto */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+            <div className="flex items-center gap-3 text-white/90">
+              <FaPhoneAlt />
+              <span>+502 30367561</span>
+            </div>
+            <div className="flex items-center gap-3 text-white/90">
+              <FaEnvelope />
+              <span>tikbalagricultura@gmail.com</span>
+            </div>
+          </div>
+
+          <motion.p
+            className="text-white/80 text-base md:text-lg mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            ¿Tienes preguntas o deseas una propuesta personalizada? Llena el formulario y te responderemos pronto.
+          </motion.p>
+
+          {/* Formulario */}
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="relative">
+              <FaUser className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/70" />
+              <input
+                type="text"
+                name="nombre"
+                value={formulario.nombre}
+                onChange={handleChange}
+                placeholder="Nombre completo"
+                className="w-full pl-12 pr-4 py-3 rounded-md bg-white/10 placeholder-white/70 text-white border border-white/30 focus:outline-none focus:ring-2 focus:ring-white"
+                required
+              />
+            </div>
+
+            <div className="relative">
+              <FaEnvelope className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/70" />
+              <input
+                type="email"
+                name="correo"
+                value={formulario.correo}
+                onChange={handleChange}
+                placeholder="Correo electrónico"
+                className="w-full pl-12 pr-4 py-3 rounded-md bg-white/10 placeholder-white/70 text-white border border-white/30 focus:outline-none focus:ring-2 focus:ring-white"
+                required
+              />
+            </div>
+
+            <div className="relative">
+              <FaCommentDots className="absolute left-4 top-4 text-white/70" />
+              <textarea
+                name="mensaje"
+                value={formulario.mensaje}
+                onChange={handleChange}
+                placeholder="Tu mensaje..."
+                rows="4"
+                className="w-full pl-12 pr-4 pt-4 pb-4 rounded-md bg-white/10 placeholder-white/70 text-white border border-white/30 focus:outline-none focus:ring-2 focus:ring-white"
+                required
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              disabled={enviando}
+              className="w-full bg-white text-[#0b3e7a] font-semibold py-3 px-6 rounded-md hover:opacity-90 transition"
+            >
+              {enviando ? 'Enviando...' : 'Enviar mensaje'}
+            </button>
+          </form>
+
+          {/* Feedback */}
+          {exito && (
+            <p className="text-green-200 text-center mt-4">¡Mensaje enviado correctamente!</p>
+          )}
+          {error && (
+            <p className="text-red-200 text-center mt-4">{error}</p>
+          )}
         </div>
-
-        {/* Mensaje */}
-        <div className="relative md:col-span-2">
-          <FaCommentDots className="absolute left-4 top-4 text-gray-400" />
-          <textarea
-            name="mensaje"
-            value={formulario.mensaje}
-            onChange={handleChange}
-            placeholder="Tu mensaje..."
-            rows="5"
-            className="w-full pl-12 pr-4 pt-4 pb-4 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary transition"
-            required
-          ></textarea>
-        </div>
-
-        {/* Botón */}
-        <button
-          type="submit"
-          disabled={enviando}
-          className="bg-primary text-white font-semibold py-3 px-6 rounded-lg hover:bg-primary/90 transition md:col-span-2"
-        >
-          {enviando ? 'Enviando...' : 'Enviar mensaje'}
-        </button>
-      </form>
-
-      {exito && (
-        <p className="text-green-600 text-center mt-6">¡Mensaje enviado correctamente!</p>
-      )}
-      {error && (
-        <p className="text-red-600 text-center mt-6">{error}</p>
-      )}
+      </div>
     </section>
   );
 }

@@ -82,20 +82,26 @@ export default function Portafolio() {
           </div>
         )}
 
+        {/* 🔘 Botón anterior compacto */}
         <button
           onClick={() => moverASlide('prev')}
-          className="absolute left-2 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-3 text-primary hover:bg-gray-100 transition z-10"
+          title="Proyecto anterior"
+          className="absolute left-2 top-1/2 -translate-y-1/2 bg-white text-primary border border-gray-300 hover:bg-gray-100 rounded-full p-2 shadow z-10"
         >
-          <FaChevronLeft />
+          <FaChevronLeft className="text-sm" />
         </button>
+
+        {/* 🔘 Botón siguiente compacto */}
         <button
           onClick={() => moverASlide('next')}
-          className="absolute right-2 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-3 text-primary hover:bg-gray-100 transition z-10"
+          title="Siguiente proyecto"
+          className="absolute right-2 top-1/2 -translate-y-1/2 bg-white text-primary border border-gray-300 hover:bg-gray-100 rounded-full p-2 shadow z-10"
         >
-          <FaChevronRight />
+          <FaChevronRight className="text-sm" />
         </button>
       </div>
 
+      {/* 🔘 Indicadores */}
       <div className="flex justify-center mt-6 gap-2">
         {proyectos.map((_, idx) => (
           <button
@@ -110,7 +116,7 @@ export default function Portafolio() {
         ))}
       </div>
 
-      {/* Botón para ver todos los proyectos */}
+      {/* 🔘 Ver todos */}
       <div className="mt-8 flex justify-center">
         <Link
           to="/proyectos"
