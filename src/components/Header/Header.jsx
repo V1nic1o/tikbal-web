@@ -20,6 +20,8 @@ export default function Header({ redireccionarConHash = false }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
+    if (redireccionarConHash) return; // ✅ Evitamos la animación de scroll si venimos desde otra ruta
+
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
       let found = false;
@@ -35,7 +37,7 @@ export default function Header({ redireccionarConHash = false }) {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [redireccionarConHash]);
 
   const handleNavigation = (id) => {
     const target = document.querySelector(id);
@@ -44,6 +46,7 @@ export default function Header({ redireccionarConHash = false }) {
       setActive(id);
       setMenuOpen(false);
     } else {
+      // Redirige a la sección por hash (usado cuando vienes desde otra ruta como ProyectoDetalle)
       window.location.href = `/${id}`;
     }
   };

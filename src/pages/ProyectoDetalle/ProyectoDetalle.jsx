@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import api from '../../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -35,7 +35,7 @@ export default function ProyectoDetalle() {
   };
 
   const irAPortafolio = () => {
-    window.location.href = '/#portafolio';
+    window.location.href = '/#portafolio'; // ✅ salto directo sin animación ni navegación de historial
   };
 
   if (!proyecto) {

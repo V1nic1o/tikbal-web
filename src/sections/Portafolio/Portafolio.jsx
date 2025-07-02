@@ -30,10 +30,8 @@ export default function Portafolio() {
     api.get('/proyectos')
       .then((res) => {
         setProyectos(res.data);
-
-        // ✅ Esperar a que los elementos se monten completamente antes de actualizar el slider
         setTimeout(() => {
-          if (instanceRef.current && instanceRef.current.update) {
+          if (instanceRef.current?.update) {
             instanceRef.current.update();
           }
         }, 150);
@@ -43,13 +41,15 @@ export default function Portafolio() {
 
   const moverASlide = (dir) => {
     if (instanceRef.current) {
-      if (dir === 'prev') instanceRef.current.prev();
-      else instanceRef.current.next();
+      dir === 'prev' ? instanceRef.current.prev() : instanceRef.current.next();
     }
   };
 
   return (
-    <section id="portafolio" className="bg-beige py-20 px-6 md:px-16 text-center">
+    <section
+      id="portafolio"
+      className="bg-beige py-20 px-6 md:px-16 text-center scroll-mt-[110px]"
+    >
       <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6">
         Nuestro Portafolio
       </h2>
@@ -98,11 +98,7 @@ export default function Portafolio() {
         {proyectos.map((_, idx) => (
           <button
             key={idx}
-            onClick={() => {
-              if (instanceRef.current && instanceRef.current.moveToIdx) {
-                instanceRef.current.moveToIdx(idx);
-              }
-            }}
+            onClick={() => instanceRef.current?.moveToIdx(idx)}
             className={`w-3 h-3 rounded-full transition-transform duration-300 ${
               currentSlide === idx ? 'bg-primary scale-125' : 'bg-gray-300 hover:bg-gray-400'
             }`}
