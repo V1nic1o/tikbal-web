@@ -1,11 +1,13 @@
+// src/pages/ProyectoDetalle.jsx
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaChevronLeft,
   FaChevronRight,
   FaHome,
+  FaThList,
   FaSpinner,
 } from 'react-icons/fa';
 import Footer from '../../sections/Footer/Footer';
@@ -14,6 +16,7 @@ import WhatsAppBubble from '../WhatsAppBubble/WhatsAppBubble';
 
 export default function ProyectoDetalle() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [proyecto, setProyecto] = useState(null);
   const [imagenActual, setImagenActual] = useState(0);
   const [cargando, setCargando] = useState(true);
@@ -47,17 +50,27 @@ export default function ProyectoDetalle() {
     window.location.href = '/#portafolio';
   };
 
+  const irATodosLosProyectos = () => {
+    navigate('/proyectos');
+  };
+
   return (
     <>
       <Header redireccionarConHash />
 
       <section className="bg-white px-4 sm:px-6 md:px-16 pt-28 pb-10 min-h-[calc(100vh-100px)]">
-        <div className="flex justify-end mb-6">
+        <div className="flex flex-wrap justify-end gap-3 mb-6">
           <button
             onClick={irAPortafolio}
             className="flex items-center gap-2 text-sm font-medium text-white bg-gradient-to-r from-[#0b3e7a] to-[#5a7f8c] px-4 py-2 rounded-full shadow hover:opacity-90 transition"
           >
             <FaHome /> Ir al inicio
+          </button>
+          <button
+            onClick={irATodosLosProyectos}
+            className="flex items-center gap-2 text-sm font-medium text-white bg-gradient-to-r from-[#0b3e7a] to-[#5a7f8c] px-4 py-2 rounded-full shadow hover:opacity-90 transition"
+          >
+            <FaThList /> Ver todos los proyectos
           </button>
         </div>
 
