@@ -1,4 +1,3 @@
-// src/sections/Portafolio/Portafolio.jsx
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
@@ -47,34 +46,53 @@ export default function Portafolio() {
   return (
     <section
       id="portafolio"
-      className="bg-beige py-20 px-4 sm:px-6 md:px-16 text-center scroll-mt-[110px]"
+      className="relative bg-[#dbccc1] py-20 px-4 sm:px-6 md:px-16 text-center scroll-mt-[110px]"
     >
-      <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6">
+      {/* Fondo decorativo opcional */}
+      <div className="absolute inset-0 bg-[url('/textura-fondo.jpg')] bg-cover bg-center opacity-5 pointer-events-none"></div>
+
+      <h2 className="text-4xl md:text-6xl font-extrabold text-[#0b3e7a] drop-shadow-sm mb-4 relative z-10">
         Nuestro Portafolio
       </h2>
-      <p className="max-w-3xl mx-auto text-base sm:text-lg text-gray-700 mb-12 px-2">
-        Hemos trabajado con clientes que comparten nuestra visión de sostenibilidad y belleza natural. Estos son algunos de los proyectos destacados:
+      <p className="max-w-3xl mx-auto text-lg sm:text-xl text-gray-800 mb-12 px-2 relative z-10">
+        Hemos trabajado con clientes que comparten nuestra visión de sostenibilidad y belleza natural.
       </p>
 
-      <div className="relative max-w-6xl mx-auto">
+      <div className="relative max-w-6xl mx-auto z-10">
         {proyectos.length > 0 && (
           <div ref={sliderRef} className="keen-slider">
             {proyectos.map((proy) => (
               <div
                 key={proy.id}
-                className="keen-slider__slide slide-custom relative overflow-hidden rounded-xl group"
+                className="keen-slider__slide slide-custom relative rounded-3xl overflow-hidden group shadow-lg"
               >
-                <Link
-                  to={`/proyecto/${proy.id}`}
-                  className="block h-full w-full"
-                >
+                <Link to={`/proyecto/${proy.id}`} className="block relative w-full h-[55vh] sm:h-[70vh]">
                   <img
                     src={proy.imagenes?.[0] || '/fallback.jpg'}
                     alt={proy.nombre}
-                    className="w-full h-[55vh] sm:h-[65vh] object-cover transition-transform duration-500 group-hover:scale-105 rounded-xl"
+                    className="w-full h-full object-cover absolute inset-0 z-0 transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 flex items-center justify-center text-white text-center px-4 bg-black/40 backdrop-blur-sm sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
-                    <h3 className="text-xl font-semibold">{proy.nombre}</h3>
+
+                  <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex flex-col justify-between px-8 py-6 z-10">
+                    <div className="flex items-start gap-3">
+                      <figure className="w-8 h-8 bg-white rounded-full shadow-md"></figure>
+                      <figure
+                        className="h-8 bg-no-repeat bg-contain"
+                        style={{
+                          backgroundImage: `url(${proy.logo || '/logo-placeholder.png'})`,
+                          width: '170px',
+                        }}
+                      ></figure>
+                    </div>
+
+                    <div className="text-left">
+                      <h3 className="text-white text-4xl md:text-5xl font-bold mb-6 leading-tight drop-shadow-lg">
+                        {proy.nombre}
+                      </h3>
+                      <div className="inline-block bg-white text-primary font-semibold px-6 py-3 rounded-full text-lg hover:scale-105 transition-transform shadow-lg">
+                        Ver proyecto
+                      </div>
+                    </div>
                   </div>
                 </Link>
               </div>
@@ -82,47 +100,45 @@ export default function Portafolio() {
           </div>
         )}
 
-        {/* 🔘 Botón anterior compacto */}
+        {/* Botones de navegación */}
         <button
           onClick={() => moverASlide('prev')}
           title="Proyecto anterior"
-          className="absolute left-2 top-1/2 -translate-y-1/2 bg-white text-primary border border-gray-300 hover:bg-gray-100 rounded-full p-2 shadow z-10"
+          className="absolute left-2 top-1/2 -translate-y-1/2 bg-white text-primary border border-gray-300 hover:bg-gray-100 rounded-full p-3 shadow-md z-20"
         >
-          <FaChevronLeft className="text-sm" />
+          <FaChevronLeft className="text-lg" />
         </button>
-
-        {/* 🔘 Botón siguiente compacto */}
         <button
           onClick={() => moverASlide('next')}
           title="Siguiente proyecto"
-          className="absolute right-2 top-1/2 -translate-y-1/2 bg-white text-primary border border-gray-300 hover:bg-gray-100 rounded-full p-2 shadow z-10"
+          className="absolute right-2 top-1/2 -translate-y-1/2 bg-white text-primary border border-gray-300 hover:bg-gray-100 rounded-full p-3 shadow-md z-20"
         >
-          <FaChevronRight className="text-sm" />
+          <FaChevronRight className="text-lg" />
         </button>
       </div>
 
-      {/* 🔘 Indicadores */}
-      <div className="flex justify-center mt-6 gap-2">
+      {/* Indicadores */}
+      <div className="flex justify-center mt-8 gap-3 z-10 relative">
         {proyectos.map((_, idx) => (
           <button
             key={idx}
             onClick={() => instanceRef.current?.moveToIdx(idx)}
-            className={`w-3 h-3 rounded-full transition-transform duration-300 ${
+            className={`w-4 h-4 rounded-full transition-transform duration-300 ${
               currentSlide === idx
-                ? 'bg-primary scale-125'
+                ? 'bg-[#0b3e7a] scale-125'
                 : 'bg-gray-300 hover:bg-gray-400'
             }`}
           />
         ))}
       </div>
 
-      {/* 🔘 Ver todos */}
-      <div className="mt-8 flex justify-center">
+      {/* Ver todos */}
+      <div className="mt-12 flex justify-center z-10 relative">
         <Link
           to="/proyectos"
-          className="inline-flex items-center gap-2 bg-gradient-to-r from-[#0b3e7a] to-[#5a7f8c] text-white px-6 py-3 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-300"
+          className="inline-flex items-center gap-3 bg-gradient-to-r from-[#0b3e7a] to-[#5a7f8c] text-white px-8 py-4 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-transform text-lg font-semibold"
         >
-          <FaFolderOpen className="text-lg" />
+          <FaFolderOpen className="text-xl" />
           Ver todos los proyectos
         </Link>
       </div>
