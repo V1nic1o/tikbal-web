@@ -71,9 +71,9 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Columna derecha (logo destacado animado) */}
+        {/* Columna derecha (logo más cercano) */}
         <motion.div
-          className="w-full lg:w-1/2 flex justify-center items-center mb-12 lg:mb-0"
+          className="w-full lg:w-1/2 flex justify-center items-center mb-12 lg:mb-0 scale-110 sm:scale-125 md:scale-130 xl:scale-135"
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}

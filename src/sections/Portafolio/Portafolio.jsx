@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaFolderOpen } from 'react-icons/fa';
 
 export default function Portafolio() {
   const [proyectos, setProyectos] = useState([]);
@@ -27,13 +27,12 @@ export default function Portafolio() {
   });
 
   useEffect(() => {
-    api.get('/proyectos')
+    api
+      .get('/proyectos')
       .then((res) => {
         setProyectos(res.data);
         setTimeout(() => {
-          if (instanceRef.current?.update) {
-            instanceRef.current.update();
-          }
+          instanceRef.current?.update();
         }, 150);
       })
       .catch(console.error);
@@ -48,12 +47,12 @@ export default function Portafolio() {
   return (
     <section
       id="portafolio"
-      className="bg-beige py-20 px-6 md:px-16 text-center scroll-mt-[110px]"
+      className="bg-beige py-20 px-4 sm:px-6 md:px-16 text-center scroll-mt-[110px]"
     >
       <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6">
         Nuestro Portafolio
       </h2>
-      <p className="max-w-3xl mx-auto text-lg text-gray-700 mb-12">
+      <p className="max-w-3xl mx-auto text-base sm:text-lg text-gray-700 mb-12 px-2">
         Hemos trabajado con clientes que comparten nuestra visión de sostenibilidad y belleza natural. Estos son algunos de los proyectos destacados:
       </p>
 
@@ -65,11 +64,14 @@ export default function Portafolio() {
                 key={proy.id}
                 className="keen-slider__slide slide-custom relative overflow-hidden rounded-xl group"
               >
-                <Link to={`/proyecto/${proy.id}`} className="block h-full w-full">
+                <Link
+                  to={`/proyecto/${proy.id}`}
+                  className="block h-full w-full"
+                >
                   <img
                     src={proy.imagenes?.[0] || '/fallback.jpg'}
                     alt={proy.nombre}
-                    className="w-full h-[70vh] object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-[55vh] sm:h-[65vh] object-cover transition-transform duration-500 group-hover:scale-105 rounded-xl"
                   />
                   <div className="absolute inset-0 flex items-center justify-center text-white text-center px-4 bg-black/40 backdrop-blur-sm sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                     <h3 className="text-xl font-semibold">{proy.nombre}</h3>
@@ -82,13 +84,13 @@ export default function Portafolio() {
 
         <button
           onClick={() => moverASlide('prev')}
-          className="absolute left-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-3 text-primary hover:bg-gray-100 transition z-10"
+          className="absolute left-2 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-3 text-primary hover:bg-gray-100 transition z-10"
         >
           <FaChevronLeft />
         </button>
         <button
           onClick={() => moverASlide('next')}
-          className="absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-3 text-primary hover:bg-gray-100 transition z-10"
+          className="absolute right-2 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-3 text-primary hover:bg-gray-100 transition z-10"
         >
           <FaChevronRight />
         </button>
@@ -100,10 +102,23 @@ export default function Portafolio() {
             key={idx}
             onClick={() => instanceRef.current?.moveToIdx(idx)}
             className={`w-3 h-3 rounded-full transition-transform duration-300 ${
-              currentSlide === idx ? 'bg-primary scale-125' : 'bg-gray-300 hover:bg-gray-400'
+              currentSlide === idx
+                ? 'bg-primary scale-125'
+                : 'bg-gray-300 hover:bg-gray-400'
             }`}
           />
         ))}
+      </div>
+
+      {/* Botón para ver todos los proyectos */}
+      <div className="mt-8 flex justify-center">
+        <Link
+          to="/proyectos"
+          className="inline-flex items-center gap-2 bg-gradient-to-r from-[#0b3e7a] to-[#5a7f8c] text-white px-6 py-3 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-300"
+        >
+          <FaFolderOpen className="text-lg" />
+          Ver todos los proyectos
+        </Link>
       </div>
     </section>
   );

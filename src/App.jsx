@@ -12,11 +12,13 @@ import Portafolio from './sections/Portafolio/Portafolio';
 import Contacto from './sections/Contacto/Contacto';
 import Footer from './sections/Footer/Footer';
 import ProyectoDetalle from './pages/ProyectoDetalle/ProyectoDetalle';
+import TodosLosProyectos from './pages/TodosLosProyectos/TodosLosProyectos';
 
 import './index.css';
 import WhatsAppBubble from './pages/WhatsAppBubble/WhatsAppBubble';
 import Header from './components/Header/Header';
 
+// ✅ Scroll al elemento con hash (ajustado para el header flotante)
 function ScrollToHashElement() {
   const location = useLocation();
 
@@ -25,10 +27,12 @@ function ScrollToHashElement() {
     if (hash) {
       const element = document.querySelector(hash);
       if (element) {
-        // scroll suave al elemento anclado
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
+          const yOffset = -100; // compensación por el header
+          const y =
+            element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'auto' }); // sin animación
+        }, 50);
       }
     }
   }, [location]);
@@ -58,6 +62,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/proyecto/:id" element={<ProyectoDetalle />} />
+        <Route path="/proyectos" element={<TodosLosProyectos />} />
       </Routes>
     </Router>
   );
