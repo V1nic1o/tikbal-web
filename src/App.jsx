@@ -30,7 +30,7 @@ function ScrollToHashElement() {
         setTimeout(() => {
           const yOffset = -100;
           const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-          window.scrollTo({ top: y, behavior: 'auto' });
+          window.scrollTo({ top: y, behavior: 'smooth' });
         }, 50);
       }
     }
@@ -41,30 +41,30 @@ function ScrollToHashElement() {
 
 function Home() {
   return (
-    <div className="snap-y snap-mandatory overflow-y-scroll h-screen scroll-smooth">
+    <div className="overflow-y-auto scroll-smooth">
       <Header />
       
-      <section id="hero" className="snap-start min-h-screen">
+      <section id="hero" className="min-h-screen">
         <Hero />
       </section>
 
-      <section id="servicios" className="snap-start min-h-screen">
+      <section id="servicios" className="min-h-screen">
         <Servicios />
       </section>
 
-      <section id="portafolio" className="snap-start min-h-screen">
+      <section id="portafolio" className="min-h-screen">
         <Portafolio />
       </section>
 
-      <section id="about" className="snap-start min-h-screen">
+      <section id="about" className="min-h-screen">
         <About />
       </section>
 
-      <section id="contacto" className="snap-start min-h-screen">
+      <section id="contacto" className="min-h-screen">
         <Contacto />
       </section>
 
-      <section id="footer" className="snap-start min-h-screen">
+      <section id="footer" className="min-h-screen">
         <Footer />
       </section>
 
