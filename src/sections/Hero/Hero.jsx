@@ -1,8 +1,12 @@
 // src/sections/Hero/Hero.jsx
 import { motion } from 'framer-motion';
+import Lottie from 'lottie-react';
 import fondo from '../../assets/FONDO.jpg';
-import logo from '../../assets/logo-tikbal.jpg';
-import { FaLeaf, FaTools, FaSeedling } from 'react-icons/fa';
+import garden from '../../assets/animations/garden.json';
+import planting from '../../assets/animations/planting.json';
+import vehicle from '../../assets/animations/vehicle.json';
+import earth from '../../assets/animations/earth.json';
+import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 export default function Hero() {
   const scrollTo = (id) => {
@@ -12,10 +16,29 @@ export default function Hero() {
     }
   };
 
+  const stickerData = [
+    {
+      anim: garden,
+      bg: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
+    },
+    {
+      anim: planting,
+      bg: '#B5F3CF',
+    },
+    {
+      anim: vehicle,
+      bg: '#80C2AF',
+    },
+    {
+      anim: earth,
+      bg: 'linear-gradient(135deg, #60a5fa, #93c5fd)',
+    },
+  ];
+
   return (
     <section
       id="hero"
-      className="relative min-h-screen w-full overflow-hidden font-sans scroll-smooth bg-gradient-to-r from-[#e8ede4] to-[#f8f4ed] pt-28 sm:pt-28 lg:pt-32"
+      className="relative min-h-screen w-full overflow-hidden font-sans bg-[#fef9ed] pt-24 sm:pt-28"
     >
       {/* Fondo decorativo difuso */}
       <motion.div
@@ -27,89 +50,73 @@ export default function Hero() {
       />
 
       {/* Contenido principal */}
-      <div className="relative z-10 flex flex-col-reverse lg:flex-row items-center justify-between text-left px-6 md:px-16 py-12 lg:py-32 max-w-7xl mx-auto">
-        {/* Columna izquierda */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-16 flex flex-col lg:flex-row items-center justify-between gap-12">
+        {/* Texto */}
         <motion.div
-          className="w-full lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0"
-          initial={{ opacity: 0, x: -50 }}
+          className="w-full lg:w-1/2 text-center lg:text-left"
+          initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0b3e7a] leading-snug mb-6 drop-shadow-sm">
-            Transformamos tus espacios <br className="hidden sm:block" /> en jardines vivos y sostenibles
+          <h2 className="text-[#1a1a1a] text-xl sm:text-2xl font-serif mb-2 transition duration-300 hover:opacity-80 hover:translate-x-1">
+            Transformamos tus espacios
+          </h2>
+          <h1 className="text-[#2776f3] font-extrabold text-4xl sm:text-5xl md:text-6xl leading-tight tracking-wide drop-shadow mb-6 transition duration-300 hover:opacity-90 hover:-translate-y-1">
+            EN JARDINES <br className="hidden sm:block" /> VIVOS Y <br className="hidden sm:block" /> SOSTENIBLES
           </h1>
 
-          <ul className="text-base sm:text-lg text-gray-700 space-y-3 mb-8">
-            <li className="flex items-center gap-2 justify-center lg:justify-start">
-              <motion.div
-                className="text-terracota text-xl shrink-0"
-                animate={{ y: [0, -6, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-              >
-                <FaLeaf />
-              </motion.div>
-              Diseño ecológico personalizado
-            </li>
-            <li className="flex items-center gap-2 justify-center lg:justify-start">
-              <motion.div
-                className="text-terracota text-xl shrink-0"
-                animate={{ y: [0, -6, 0] }}
-                transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
-              >
-                <FaSeedling />
-              </motion.div>
-              Regeneración del suelo y asesoría
-            </li>
-            <li className="flex items-center gap-2 justify-center lg:justify-start">
-              <motion.div
-                className="text-terracota text-xl shrink-0"
-                animate={{ y: [0, -6, 0] }}
-                transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-              >
-                <FaTools />
-              </motion.div>
-              Mantenimiento orgánico integral
-            </li>
-          </ul>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-6">
             <motion.button
               onClick={() => scrollTo('#contacto')}
-              className="px-6 py-3 bg-terracota text-white rounded-full shadow hover:shadow-md transition hover:scale-105"
-              whileHover={{ scale: 1.05 }}
+              className="px-6 py-3 bg-[#f97f4e] text-white rounded-full shadow hover:shadow-md transition-all duration-300 hover:scale-110 text-sm font-semibold"
+              whileHover={{ scale: 1.1 }}
             >
-              Solicita una visita
+              SOLICITA UNA VISITA
             </motion.button>
-
             <motion.button
               onClick={() => scrollTo('#portafolio')}
-              className="px-6 py-3 border border-terracota text-terracota rounded-full hover:bg-terracota hover:text-white transition hover:scale-105"
-              whileHover={{ scale: 1.05 }}
+              className="px-6 py-3 bg-[#fd9b6b] text-white rounded-full shadow hover:shadow-md transition-all duration-300 hover:scale-110 text-sm font-semibold"
+              whileHover={{ scale: 1.1 }}
             >
-              Ver proyectos
+              VER PROYECTOS
             </motion.button>
+          </div>
+
+          {/* Redes sociales */}
+          <div className="flex gap-4 justify-center lg:justify-start">
+            <a href="https://wa.me/50200000000" target="_blank" rel="noopener noreferrer">
+              <FaWhatsapp className="text-green-500 hover:scale-125 transition-all duration-300 text-2xl sm:text-3xl" />
+            </a>
+            <a href="https://facebook.com/tikbal" target="_blank" rel="noopener noreferrer">
+              <FaFacebookF className="text-blue-600 hover:scale-125 transition-all duration-300 text-2xl sm:text-3xl" />
+            </a>
+            <a href="https://instagram.com/tikbal" target="_blank" rel="noopener noreferrer">
+              <FaInstagram className="text-pink-500 hover:scale-125 transition-all duration-300 text-2xl sm:text-3xl" />
+            </a>
           </div>
         </motion.div>
 
-        {/* Columna derecha (logo más cercano) */}
+        {/* Stickers animados con burbujas redondas */}
         <motion.div
-          className="w-full lg:w-1/2 flex justify-center items-center mb-12 lg:mb-0 scale-110 sm:scale-125 md:scale-130 xl:scale-135"
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          className="grid grid-cols-2 gap-6 sm:gap-8 justify-items-center w-full lg:w-1/2"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
         >
-          <div className="relative bg-white border border-gray-200 shadow-2xl rounded-3xl p-4 sm:p-6 w-56 sm:w-72 md:w-96 hover:shadow-terracota/30 transition-shadow duration-300">
-            <img
-              src={logo}
-              alt="Logo Tikb’al"
-              className="w-full h-auto object-contain rounded-xl"
-            />
-            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-terracota text-white text-xs px-4 py-1 rounded-full shadow-md whitespace-nowrap">
-              Desde 2020 • Jardines conscientes
-            </div>
-          </div>
+          {stickerData.map(({ anim, bg }, i) => (
+            <motion.div
+              key={i}
+              className="rounded-full shadow-xl p-4 sm:p-6 flex items-center justify-center w-40 h-40 sm:w-52 sm:h-52 md:w-56 md:h-56 transition-all duration-300 cursor-pointer"
+              style={{ background: bg }}
+              whileHover={{
+                scale: 1.1,
+                rotate: 3,
+                transition: { duration: 0.4, ease: 'easeInOut' },
+              }}
+            >
+              <Lottie animationData={anim} loop className="w-full h-full" />
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>

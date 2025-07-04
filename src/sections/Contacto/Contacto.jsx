@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import Lottie from 'lottie-react';
 import {
   FaUser,
   FaEnvelope,
@@ -10,6 +11,7 @@ import {
 } from 'react-icons/fa6';
 import { FaPhoneAlt } from 'react-icons/fa';
 import api from '../../services/api';
+import stickerContacto from '../../assets/animations/contact.json';
 
 export default function Contacto() {
   const [formulario, setFormulario] = useState({ nombre: '', correo: '', mensaje: '' });
@@ -40,19 +42,22 @@ export default function Contacto() {
   };
 
   return (
-    <section id="contacto" className="bg-beige py-20 px-4 md:px-10">
+    <section id="contacto" className="bg-white py-20 px-4 md:px-10">
       <div className="max-w-7xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-gray-200 bg-gradient-to-br from-[#0b3e7a] to-[#5a7f8c] text-white px-6 md:px-12 py-12 flex flex-col md:flex-row gap-10 items-center">
-        
-        {/* 📸 Imagen */}
-        <div className="w-full md:w-1/2">
-          <img
-            src="/FONDO.jpg"
-            alt="Soporte técnico"
-            className="w-full h-full object-cover rounded-2xl shadow-lg"
-          />
-        </div>
 
-        {/* 📬 Formulario */}
+        {/* Animación tipo sticker */}
+        <motion.div
+          className="w-full md:w-1/2 flex items-center justify-center"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          <div className="w-full max-w-sm sm:max-w-md md:max-w-lg">
+            <Lottie animationData={stickerContacto} loop className="w-full h-full" />
+          </div>
+        </motion.div>
+
+        {/* Formulario */}
         <div className="w-full md:w-1/2 flex flex-col justify-center">
           <motion.div
             className="flex items-center justify-between mb-6"
@@ -62,13 +67,13 @@ export default function Contacto() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold">Contáctanos</h2>
-            <div className="flex gap-4 text-white text-xl">
+            <div className="flex gap-4 text-xl">
               <a
                 href="https://www.instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="hover:text-white/70 animate-bounce"
+                className="hover:scale-110 transition text-[#E1306C] animate-bounce"
               >
                 <FaInstagram />
               </a>
@@ -77,7 +82,7 @@ export default function Contacto() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="hover:text-white/70 animate-bounce [animation-delay:0.2s]"
+                className="hover:scale-110 transition text-[#1877F2] animate-bounce [animation-delay:0.2s]"
               >
                 <FaFacebookF />
               </a>
@@ -86,7 +91,7 @@ export default function Contacto() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="X"
-                className="hover:text-white/70 animate-bounce [animation-delay:0.4s]"
+                className="hover:scale-110 transition text-black animate-bounce [animation-delay:0.4s]"
               >
                 <FaXTwitter />
               </a>

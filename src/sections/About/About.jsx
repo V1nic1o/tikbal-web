@@ -24,7 +24,7 @@ export default function About() {
   return (
     <section
       id="nosotros"
-      className="bg-beige py-20 px-6 md:px-16 text-center"
+      className="bg-white py-20 px-6 md:px-16 text-center"
     >
       <motion.h2
         className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-[#002850] to-[#3b6b8e] bg-clip-text text-transparent mb-8"
@@ -48,7 +48,7 @@ export default function About() {
       </motion.p>
 
       <motion.div
-        className="grid grid-cols-1 gap-6 max-w-4xl mx-auto"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
         initial="hidden"
         whileInView="visible"
         transition={{ staggerChildren: 0.2 }}
@@ -57,19 +57,19 @@ export default function About() {
         {METODOS.map((item, index) => (
           <motion.div
             key={index}
-            className="flex items-start bg-white shadow-md rounded-2xl px-6 py-5 text-left border border-gray-200"
+            className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm text-left mx-auto"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.2 }}
           >
-            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-r from-[#003366] to-[#5a7f8c] flex items-center justify-center mr-4 shadow-sm">
-              {item.icon}
-            </div>
-            <div>
-              <h3 className="text-base sm:text-lg font-semibold text-[#003366] mb-1">
+            <div className="p-5">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#003366] to-[#5a7f8c] flex items-center justify-center mb-4 shadow-sm">
+                {item.icon}
+              </div>
+              <h3 className="text-xl font-bold text-[#003366] mb-2">
                 {item.title}
               </h3>
-              <p className="text-sm text-gray-700 leading-relaxed italic border-l-4 border-gray-300 pl-3">
+              <p className="text-gray-700 text-sm italic leading-relaxed">
                 {item.desc}
               </p>
             </div>

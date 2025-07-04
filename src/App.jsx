@@ -18,7 +18,7 @@ import './index.css';
 import WhatsAppBubble from './pages/WhatsAppBubble/WhatsAppBubble';
 import Header from './components/Header/Header';
 
-// ✅ Scroll al elemento con hash (ajustado para el header flotante)
+// ✅ Scroll automático al hash
 function ScrollToHashElement() {
   const location = useLocation();
 
@@ -28,10 +28,9 @@ function ScrollToHashElement() {
       const element = document.querySelector(hash);
       if (element) {
         setTimeout(() => {
-          const yOffset = -100; // compensación por el header
-          const y =
-            element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-          window.scrollTo({ top: y, behavior: 'auto' }); // sin animación
+          const yOffset = -100;
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'auto' });
         }, 50);
       }
     }
@@ -42,14 +41,33 @@ function ScrollToHashElement() {
 
 function Home() {
   return (
-    <div className="bg-beige min-h-screen text-gray-800 font-sans">
+    <div className="snap-y snap-mandatory overflow-y-scroll h-screen scroll-smooth">
       <Header />
-      <Hero />
-      <Servicios />
-      <Portafolio />
-      <About />
-      <Contacto />
-      <Footer />
+      
+      <section id="hero" className="snap-start min-h-screen">
+        <Hero />
+      </section>
+
+      <section id="servicios" className="snap-start min-h-screen">
+        <Servicios />
+      </section>
+
+      <section id="portafolio" className="snap-start min-h-screen">
+        <Portafolio />
+      </section>
+
+      <section id="about" className="snap-start min-h-screen">
+        <About />
+      </section>
+
+      <section id="contacto" className="snap-start min-h-screen">
+        <Contacto />
+      </section>
+
+      <section id="footer" className="snap-start min-h-screen">
+        <Footer />
+      </section>
+
       <WhatsAppBubble />
     </div>
   );

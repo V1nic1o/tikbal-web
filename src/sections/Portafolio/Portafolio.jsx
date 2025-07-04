@@ -46,7 +46,7 @@ export default function Portafolio() {
   return (
     <section
       id="portafolio"
-      className="relative bg-[#dbccc1] py-20 px-4 sm:px-6 md:px-16 text-center scroll-mt-[110px]"
+      className="relative bg-white py-20 px-4 sm:px-6 md:px-16 text-center scroll-mt-[110px]"
     >
       {/* Fondo decorativo opcional */}
       <div className="absolute inset-0 bg-[url('/textura-fondo.jpg')] bg-cover bg-center opacity-5 pointer-events-none"></div>
