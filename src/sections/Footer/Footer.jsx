@@ -10,7 +10,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-r from-[#0b3e7a] to-[#5a7f8c] text-white pt-16 pb-10 px-6 md:px-16">
+    <footer className="bg-gradient-to-r from-[#0b3e7a] to-[#5a7f8c] text-white px-6 md:px-16 pt-16 pb-8 overflow-hidden">
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
         {/* Logo y descripción */}
         <div>
@@ -82,7 +82,7 @@ export default function Footer() {
               aria-label="Instagram"
               className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-all duration-300 text-xl"
             >
-              <FaInstagram />
+              <FaInstagram className="text-pink-500" />
             </a>
             <a
               href="https://www.facebook.com/"
@@ -91,7 +91,7 @@ export default function Footer() {
               aria-label="Facebook"
               className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-all duration-300 text-xl"
             >
-              <FaFacebookF />
+              <FaFacebookF className="text-blue-600" />
             </a>
             <a
               href="https://x.com/"
@@ -100,7 +100,7 @@ export default function Footer() {
               aria-label="X"
               className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-all duration-300 text-xl"
             >
-              <FaXTwitter />
+              <FaXTwitter className="text-black" />
             </a>
           </div>
         </div>

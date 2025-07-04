@@ -64,7 +64,8 @@ function Home() {
         <Contacto />
       </section>
 
-      <section id="footer" className="min-h-screen">
+      {/* ✅ Corregido: el footer ahora usa altura automática */}
+      <section id="footer" className="py-10">
         <Footer />
       </section>
 
