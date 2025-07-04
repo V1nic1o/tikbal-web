@@ -1,6 +1,6 @@
-// src/sections/Hero/Hero.jsx
 import { motion } from 'framer-motion';
 import Lottie from 'lottie-react';
+import { useEffect, useState } from 'react';
 import fondo from '../../assets/FONDO.jpg';
 import garden from '../../assets/animations/garden.json';
 import planting from '../../assets/animations/planting.json';
@@ -17,23 +17,23 @@ export default function Hero() {
   };
 
   const stickerData = [
-    {
-      anim: garden,
-      bg: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
-    },
-    {
-      anim: planting,
-      bg: '#B5F3CF',
-    },
-    {
-      anim: vehicle,
-      bg: '#80C2AF',
-    },
-    {
-      anim: earth,
-      bg: 'linear-gradient(135deg, #60a5fa, #93c5fd)',
-    },
+    { anim: garden, bg: 'linear-gradient(135deg, #3b82f6, #60a5fa)' },
+    { anim: planting, bg: '#B5F3CF' },
+    { anim: vehicle, bg: '#80C2AF' },
+    { anim: earth, bg: 'linear-gradient(135deg, #60a5fa, #93c5fd)' },
   ];
+
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkViewport = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    checkViewport();
+    window.addEventListener('resize', checkViewport);
+    return () => window.removeEventListener('resize', checkViewport);
+  }, []);
 
   return (
     <section
@@ -51,6 +51,7 @@ export default function Hero() {
 
       {/* Contenido principal */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-16 flex flex-col lg:flex-row items-center justify-between gap-12">
+        
         {/* Texto */}
         <motion.div
           className="w-full lg:w-1/2 text-center lg:text-left"
@@ -96,28 +97,56 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Stickers animados con burbujas redondas */}
-        <motion.div
-          className="grid grid-cols-2 gap-6 sm:gap-8 justify-items-center w-full lg:w-1/2"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9 }}
-        >
-          {stickerData.map(({ anim, bg }, i) => (
+        {/* Stickers */}
+        <div className="w-full lg:w-[460px] h-[460px] relative">
+          {isDesktop ? (
             <motion.div
-              key={i}
-              className="rounded-full shadow-xl p-4 sm:p-6 flex items-center justify-center w-40 h-40 sm:w-52 sm:h-52 md:w-56 md:h-56 transition-all duration-300 cursor-pointer"
-              style={{ background: bg }}
-              whileHover={{
-                scale: 1.1,
-                rotate: 3,
-                transition: { duration: 0.4, ease: 'easeInOut' },
-              }}
+              className="relative w-full h-full"
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 40, ease: 'linear' }}
             >
-              <Lottie animationData={anim} loop className="w-full h-full" />
+              {stickerData.map(({ anim, bg }, i) => {
+                const angle = (i * 360) / stickerData.length;
+                const radius = 180;
+                const rad = (angle * Math.PI) / 180;
+                const x = radius * Math.cos(rad);
+                const y = radius * Math.sin(rad);
+
+                return (
+                  <div
+                    key={i}
+                    className="absolute w-40 h-40 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-full shadow-xl flex items-center justify-center"
+                    style={{
+                      background: bg,
+                      top: `calc(50% + ${y}px - 96px)`,
+                      left: `calc(50% + ${x}px - 96px)`,
+                    }}
+                  >
+                    <motion.div
+                      animate={{ rotate: -360 }}
+                      transition={{ repeat: Infinity, duration: 40, ease: 'linear' }}
+                      className="w-full h-full flex items-center justify-center"
+                    >
+                      <Lottie animationData={anim} loop className="w-full h-full" />
+                    </motion.div>
+                  </div>
+                );
+              })}
             </motion.div>
-          ))}
-        </motion.div>
+          ) : (
+            <div className="grid grid-cols-2 gap-6 sm:gap-8 justify-items-center mt-4">
+              {stickerData.map(({ anim, bg }, i) => (
+                <div
+                  key={i}
+                  className="w-32 h-32 sm:w-36 sm:h-36 rounded-full shadow-xl flex items-center justify-center"
+                  style={{ background: bg }}
+                >
+                  <Lottie animationData={anim} loop className="w-full h-full" />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
