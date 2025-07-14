@@ -42,8 +42,11 @@ export default function Contacto() {
   };
 
   return (
-    <section id="contacto" className="bg-white py-20 px-4 md:px-10">
-      <div className="max-w-7xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-gray-200 bg-gradient-to-br from-[#0b3e7a] to-[#5a7f8c] text-white px-6 md:px-12 py-12 flex flex-col md:flex-row gap-10 items-center">
+    <section
+      id="contacto"
+      className="bg-[#f7f7f7] dark:bg-[#0B1229] py-20 px-4 md:px-10 transition-colors duration-700"
+    >
+      <div className="max-w-7xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 bg-gradient-to-br from-[#0b3e7a] to-[#5a7f8c] text-white px-6 md:px-12 py-12 flex flex-col md:flex-row gap-10 items-center">
 
         {/* Animación tipo sticker */}
         <motion.div

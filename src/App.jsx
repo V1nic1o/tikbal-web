@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -41,13 +41,15 @@ function ScrollToHashElement() {
 
 function Home() {
   return (
-    <div className="overflow-y-auto scroll-smooth">
+    <>
       <Header />
-      
+
+      {/* ✅ Hero sí debe ocupar toda la pantalla */}
       <section id="hero" className="min-h-screen">
         <Hero />
       </section>
 
+      {/* ✅ Servicios y Portafolio pueden mantenerse */}
       <section id="servicios" className="min-h-screen">
         <Servicios />
       </section>
@@ -56,33 +58,52 @@ function Home() {
         <Portafolio />
       </section>
 
-      <section id="about" className="min-h-screen">
+      {/* ❌ Eliminado min-h-screen en secciones pequeñas */}
+      <section id="about">
         <About />
       </section>
 
-      <section id="contacto" className="min-h-screen">
+      <section id="contacto">
         <Contacto />
       </section>
 
-      {/* ✅ Corregido: el footer ahora usa altura automática */}
-      <section id="footer" className="py-10">
+      <section id="footer">
         <Footer />
       </section>
 
       <WhatsAppBubble />
-    </div>
+    </>
   );
 }
 
 export default function App() {
+  const [theme, setTheme] = useState('light');
+
+  // ✅ Cargar preferencia desde localStorage
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(storedTheme);
+    document.documentElement.classList.toggle('dark', storedTheme === 'dark');
+  }, []);
+
+  // ✅ Alternar tema (lo usaremos desde Header luego)
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+  };
+
   return (
-    <Router>
-      <ScrollToHashElement />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/proyecto/:id" element={<ProyectoDetalle />} />
-        <Route path="/proyectos" element={<TodosLosProyectos />} />
-      </Routes>
-    </Router>
+    <div className={`${theme}`}>
+      <Router>
+        <ScrollToHashElement />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/proyecto/:id" element={<ProyectoDetalle />} />
+          <Route path="/proyectos" element={<TodosLosProyectos />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }

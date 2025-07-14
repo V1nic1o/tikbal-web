@@ -46,15 +46,15 @@ export default function Portafolio() {
   return (
     <section
       id="portafolio"
-      className="relative bg-white py-20 px-4 sm:px-6 md:px-16 text-center scroll-mt-[110px]"
+      className="relative bg-[#f7f7f7] dark:bg-[#0B1229] py-20 px-4 sm:px-6 md:px-16 text-center scroll-mt-[110px] transition-colors duration-700"
     >
       {/* Fondo decorativo opcional */}
-      <div className="absolute inset-0 bg-[url('/textura-fondo.jpg')] bg-cover bg-center opacity-5 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[url('/textura-fondo.jpg')] bg-cover bg-center opacity-5 dark:opacity-10 pointer-events-none z-0"></div>
 
-      <h2 className="text-4xl md:text-6xl font-extrabold text-[#0b3e7a] drop-shadow-sm mb-4 relative z-10">
+      <h2 className="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white drop-shadow-sm mb-4 relative z-10">
         Nuestro Portafolio
       </h2>
-      <p className="max-w-3xl mx-auto text-lg sm:text-xl text-gray-800 mb-12 px-2 relative z-10">
+      <p className="max-w-3xl mx-auto text-lg sm:text-xl text-gray-700 dark:text-slate-300 mb-12 px-2 relative z-10">
         Hemos trabajado con clientes que comparten nuestra visión de sostenibilidad y belleza natural.
       </p>
 
@@ -104,14 +104,14 @@ export default function Portafolio() {
         <button
           onClick={() => moverASlide('prev')}
           title="Proyecto anterior"
-          className="absolute left-2 top-1/2 -translate-y-1/2 bg-white text-primary border border-gray-300 hover:bg-gray-100 rounded-full p-3 shadow-md z-20"
+          className="absolute left-2 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 text-primary border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-3 shadow-md z-20"
         >
           <FaChevronLeft className="text-lg" />
         </button>
         <button
           onClick={() => moverASlide('next')}
           title="Siguiente proyecto"
-          className="absolute right-2 top-1/2 -translate-y-1/2 bg-white text-primary border border-gray-300 hover:bg-gray-100 rounded-full p-3 shadow-md z-20"
+          className="absolute right-2 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 text-primary border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-3 shadow-md z-20"
         >
           <FaChevronRight className="text-lg" />
         </button>
@@ -126,7 +126,7 @@ export default function Portafolio() {
             className={`w-4 h-4 rounded-full transition-transform duration-300 ${
               currentSlide === idx
                 ? 'bg-[#0b3e7a] scale-125'
-                : 'bg-gray-300 hover:bg-gray-400'
+                : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
             }`}
           />
         ))}

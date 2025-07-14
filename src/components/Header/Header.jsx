@@ -1,4 +1,3 @@
-// src/components/Header/Header.jsx
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
@@ -8,7 +7,10 @@ import {
   FaEnvelope,
   FaBars,
   FaTimes,
+  FaMoon,
+  FaSun,
 } from 'react-icons/fa';
+import logo from '../../assets/logo-tikbal.png'; // 🟡 Ajusta esta ruta si tu logo está en otra carpeta
 
 const AnimatedIcon = ({ children, delay = 0 }) => (
   <motion.span
@@ -30,10 +32,10 @@ const navItems = [
 export default function Header({ redireccionarConHash = false }) {
   const [active, setActive] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     if (redireccionarConHash) return;
-
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
       let found = false;
@@ -46,10 +48,21 @@ export default function Header({ redireccionarConHash = false }) {
       }
       if (!found) setActive('#hero');
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [redireccionarConHash]);
+
+  useEffect(() => {
+    const theme = localStorage.getItem('theme') || 'light';
+    setDarkMode(theme === 'dark');
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = darkMode ? 'light' : 'dark';
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    localStorage.setItem('theme', newTheme);
+    setDarkMode(!darkMode);
+  };
 
   const handleNavigation = (id) => {
     const target = document.querySelector(id);
@@ -71,33 +84,57 @@ export default function Header({ redireccionarConHash = false }) {
         flex items-center justify-between sm:justify-start gap-4 sm:gap-6
         text-sm font-medium w-[90%] sm:w-auto max-w-[95%] sm:max-w-max transition-colors duration-500"
       >
-        {/* Logo Tikb’al */}
+        {/* Logo + Tikb’al */}
         <button
           onClick={() =>
             redireccionarConHash
               ? (window.location.href = '/#hero')
               : handleNavigation('#hero')
           }
-          className={`font-bold text-white text-base sm:text-lg transition-all duration-300 px-2 py-1 rounded-md ${
+          className={`flex items-center font-bold text-white text-base sm:text-lg px-2 py-1 rounded-md transition-all duration-300 ${
             active === '#hero'
               ? 'bg-white/20 shadow-inner'
               : 'hover:text-white/80'
           }`}
         >
+          <img src={logo} alt="Logo Tikb’al" className="w-6 h-6 mr-2" />
           Tikb’al
         </button>
 
-        {/* Botón menú móvil */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="sm:hidden text-white text-xl"
-        >
-          {menuOpen ? <FaTimes /> : <FaBars />}
-        </button>
+        {/* MODO OSCURO y MENÚ móvil – ORDEN INVERTIDO */}
+        <div className="flex sm:hidden items-center gap-3 ml-auto">
+          {/* Modo oscuro */}
+          <button
+            onClick={toggleTheme}
+            className={`w-14 h-8 flex items-center rounded-full p-1 transition duration-300 ease-in-out focus:outline-none ${
+              darkMode ? 'bg-gray-700 justify-end' : 'bg-blue-600 justify-start'
+            }`}
+          >
+            <motion.span
+              layout
+              transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+              className="w-6 h-6 bg-white rounded-full flex items-center justify-center"
+            >
+              {darkMode ? (
+                <FaMoon className="text-gray-900 text-sm" />
+              ) : (
+                <FaSun className="text-yellow-500 text-sm" />
+              )}
+            </motion.span>
+          </button>
+
+          {/* Menú hamburguesa */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="text-white text-xl"
+          >
+            {menuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        </div>
 
         {/* Menú horizontal */}
         <nav className="hidden sm:flex items-center gap-4">
-          {navItems.map((item, index) => (
+          {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => handleNavigation(item.id)}
@@ -112,9 +149,31 @@ export default function Header({ redireccionarConHash = false }) {
             </button>
           ))}
         </nav>
+
+        {/* Modo oscuro escritorio */}
+        <div className="hidden sm:block">
+          <button
+            onClick={toggleTheme}
+            className={`w-14 h-8 flex items-center rounded-full p-1 transition duration-300 ease-in-out focus:outline-none ${
+              darkMode ? 'bg-gray-700 justify-end' : 'bg-blue-600 justify-start'
+            }`}
+          >
+            <motion.span
+              layout
+              transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+              className="w-6 h-6 bg-white rounded-full flex items-center justify-center"
+            >
+              {darkMode ? (
+                <FaMoon className="text-gray-900 text-sm" />
+              ) : (
+                <FaSun className="text-yellow-500 text-sm" />
+              )}
+            </motion.span>
+          </button>
+        </div>
       </header>
 
-      {/* Menú móvil desplegable */}
+      {/* Menú móvil */}
       {menuOpen && (
         <div className="fixed top-20 right-6 z-40 w-[85%] max-w-sm bg-gradient-to-br from-[#0b3e7a] to-[#5a7f8c] text-white rounded-2xl shadow-2xl px-6 py-6 flex flex-col gap-4 animate-fadeIn">
           {[{ id: '#hero', label: 'Inicio', icon: <FaLeaf />, delay: 0 }, ...navItems].map(

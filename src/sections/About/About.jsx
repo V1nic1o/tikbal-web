@@ -27,10 +27,10 @@ export default function About() {
   return (
     <section
       id="nosotros"
-      className="bg-white py-20 px-6 md:px-16 text-center"
+      className="bg-[#f7f7f7] dark:bg-[#0B1229] py-20 px-6 md:px-16 text-center transition-colors duration-700"
     >
       <motion.h2
-        className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-[#002850] to-[#3b6b8e] bg-clip-text text-transparent mb-8"
+        className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -40,7 +40,7 @@ export default function About() {
       </motion.h2>
 
       <motion.p
-        className="max-w-4xl mx-auto text-lg sm:text-xl leading-relaxed mb-12 text-[#1f1f1f]"
+        className="max-w-4xl mx-auto text-lg sm:text-xl leading-relaxed mb-12 text-gray-700 dark:text-slate-300"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
@@ -60,7 +60,7 @@ export default function About() {
         {METODOS.map((item, index) => (
           <motion.div
             key={index}
-            className="bg-white border border-gray-200 rounded-3xl shadow-lg text-center p-6 hover:shadow-xl transition-all duration-300"
+            className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-3xl shadow-lg text-center p-6 hover:shadow-xl transition-all duration-300"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.2 }}
@@ -68,10 +68,10 @@ export default function About() {
             <div className="w-32 h-32 sm:w-36 sm:h-36 mx-auto mb-4">
               <Lottie animationData={item.sticker} loop />
             </div>
-            <h3 className="text-xl font-bold text-[#003366] mb-2">
+            <h3 className="text-xl font-bold text-[#003366] dark:text-white mb-2">
               {item.title}
             </h3>
-            <p className="text-gray-700 text-sm italic leading-relaxed">
+            <p className="text-gray-700 dark:text-slate-300 text-sm italic leading-relaxed">
               {item.desc}
             </p>
           </motion.div>

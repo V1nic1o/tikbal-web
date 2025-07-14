@@ -10,7 +10,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-r from-[#0b3e7a] to-[#5a7f8c] text-white px-6 md:px-16 pt-16 pb-8 overflow-hidden">
+    <footer className="bg-gradient-to-r from-[#0b3e7a] to-[#5a7f8c] dark:from-[#071c36] dark:to-[#1f3d50] text-white px-6 md:px-16 pt-16 pb-8 overflow-hidden transition-colors duration-700">
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
         {/* Logo y descripción */}
         <div>
@@ -36,7 +36,7 @@ export default function Footer() {
               <li key={link}>
                 <a
                   href={link}
-                  className="hover:underline hover:text-terracota transition-all duration-300"
+                  className="hover:underline hover:text-sky-200 transition-all duration-300"
                 >
                   {label}
                 </a>
@@ -55,7 +55,7 @@ export default function Footer() {
             <li>
               <a
                 href="tel:+50230367561"
-                className="flex items-center gap-2 hover:text-terracota transition-all duration-300"
+                className="flex items-center gap-2 hover:text-sky-200 transition-all duration-300"
               >
                 <FaPhone /> +502 3036 7561
               </a>
@@ -63,7 +63,7 @@ export default function Footer() {
             <li>
               <a
                 href="mailto:tikbalagricultura@gmail.com"
-                className="flex items-center gap-2 hover:text-terracota transition-all duration-300"
+                className="flex items-center gap-2 hover:text-sky-200 transition-all duration-300"
               >
                 <FaEnvelope /> tikbalagricultura@gmail.com
               </a>
@@ -100,7 +100,7 @@ export default function Footer() {
               aria-label="X"
               className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-all duration-300 text-xl"
             >
-              <FaXTwitter className="text-black" />
+              <FaXTwitter className="text-black dark:text-white" />
             </a>
           </div>
         </div>

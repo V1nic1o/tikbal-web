@@ -1,12 +1,12 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Lottie from 'lottie-react';
 import { useEffect, useState } from 'react';
-import fondo from '../../assets/FONDO.jpg';
 import garden from '../../assets/animations/garden.json';
 import planting from '../../assets/animations/planting.json';
-import vehicle from '../../assets/animations/vehicle.json';
 import earth from '../../assets/animations/earth.json';
+import fondo from '../../assets/FONDO.jpg'; // ✅ Imagen del logo
 import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 export default function Hero() {
   const scrollTo = (id) => {
@@ -17,135 +17,156 @@ export default function Hero() {
   };
 
   const stickerData = [
-    { anim: garden, bg: 'linear-gradient(135deg, #3b82f6, #60a5fa)' },
-    { anim: planting, bg: '#B5F3CF' },
-    { anim: vehicle, bg: '#80C2AF' },
-    { anim: earth, bg: 'linear-gradient(135deg, #60a5fa, #93c5fd)' },
+    {
+      anim: garden,
+      bg: '#DCFCE7',
+      mensaje: 'Diseñamos jardines vivos y en armonía con la naturaleza.',
+      isImage: false,
+    },
+    {
+      anim: planting,
+      bg: '#FEF3C7',
+      mensaje: 'Asesoramos en el cultivo orgánico y sostenible.',
+      isImage: false,
+    },
+    {
+      anim: fondo, // ✅ Imagen como sticker
+      bg: '#DBEAFE',
+      mensaje: 'Llevamos vida verde hasta la puerta de tu hogar o empresa.',
+      isImage: true,
+    },
+    {
+      anim: earth,
+      bg: '#F3E8FF',
+      mensaje: 'Creamos un futuro más verde desde cada rincón del país.',
+      isImage: false,
+    },
   ];
 
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    const checkViewport = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-
-    checkViewport();
-    window.addEventListener('resize', checkViewport);
-    return () => window.removeEventListener('resize', checkViewport);
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % stickerData.length);
+    }, 7000);
+    return () => clearInterval(interval);
   }, []);
+
+  const goPrev = () => {
+    setCurrent((prev) => (prev - 1 + stickerData.length) % stickerData.length);
+  };
+
+  const goNext = () => {
+    setCurrent((prev) => (prev + 1) % stickerData.length);
+  };
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen w-full overflow-hidden font-sans bg-[#fef9ed] pt-24 sm:pt-28"
+      className="relative min-h-screen w-full overflow-hidden font-sans bg-[#f7f7f7] dark:bg-[#0B1229] text-gray-900 dark:text-white"
     >
-      {/* Fondo decorativo difuso */}
-      <motion.div
-        className="absolute inset-0 bg-cover bg-center opacity-10"
-        style={{ backgroundImage: `url(${fondo})` }}
-        initial={{ scale: 1.1 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 6 }}
-      />
-
-      {/* Contenido principal */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-16 flex flex-col lg:flex-row items-center justify-between gap-12">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-10 flex flex-col-reverse lg:flex-row items-center justify-center gap-10 pt-24 sm:pt-28 lg:pt-36 xl:pt-44">
         
-        {/* Texto */}
-        <motion.div
-          className="w-full lg:w-1/2 text-center lg:text-left"
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className="text-[#1a1a1a] text-xl sm:text-2xl font-serif mb-2 transition duration-300 hover:opacity-80 hover:translate-x-1">
+        {/* Texto principal */}
+        <div className="w-full lg:w-[55%] text-left order-2 lg:order-1">
+          <motion.h2
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-white"
+          >
             Transformamos tus espacios
-          </h2>
-          <h1 className="text-[#2776f3] font-extrabold text-4xl sm:text-5xl md:text-6xl leading-tight tracking-wide drop-shadow mb-6 transition duration-300 hover:opacity-90 hover:-translate-y-1">
-            EN JARDINES <br className="hidden sm:block" /> VIVOS Y <br className="hidden sm:block" /> SOSTENIBLES
-          </h1>
+          </motion.h2>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-6">
+          <motion.h1
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, delay: 0.2 }}
+            className="font-extrabold text-4xl sm:text-6xl md:text-7xl leading-tight tracking-wide drop-shadow mb-5 text-gray-900 dark:text-white"
+          >
+            EN JARDINES VIVOS Y SOSTENIBLES
+          </motion.h1>
+
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={current}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 1.2, ease: 'easeInOut' }}
+              className="text-gray-700 dark:text-slate-300 mb-6 text-lg sm:text-xl"
+            >
+              {stickerData[current].mensaje}
+            </motion.p>
+          </AnimatePresence>
+
+          <div className="flex flex-wrap sm:flex-nowrap gap-4 mb-6">
             <motion.button
               onClick={() => scrollTo('#contacto')}
-              className="px-6 py-3 bg-[#f97f4e] text-white rounded-full shadow hover:shadow-md transition-all duration-300 hover:scale-110 text-sm font-semibold"
-              whileHover={{ scale: 1.1 }}
+              className="flex-1 sm:flex-none px-6 py-3 bg-[#4F46E5] text-white rounded-md shadow hover:shadow-lg transition-all duration-300 hover:scale-105 text-base font-semibold"
+              whileHover={{ scale: 1.05 }}
             >
               SOLICITA UNA VISITA
             </motion.button>
             <motion.button
               onClick={() => scrollTo('#portafolio')}
-              className="px-6 py-3 bg-[#fd9b6b] text-white rounded-full shadow hover:shadow-md transition-all duration-300 hover:scale-110 text-sm font-semibold"
-              whileHover={{ scale: 1.1 }}
+              className="flex-1 sm:flex-none px-6 py-3 bg-[#6366F1] text-white rounded-md shadow hover:shadow-lg transition-all duration-300 hover:scale-105 text-base font-semibold"
+              whileHover={{ scale: 1.05 }}
             >
               VER PROYECTOS
             </motion.button>
           </div>
 
-          {/* Redes sociales */}
-          <div className="flex gap-4 justify-center lg:justify-start">
+          <div className="flex gap-4">
             <a href="https://wa.me/50200000000" target="_blank" rel="noopener noreferrer">
-              <FaWhatsapp className="text-green-500 hover:scale-125 transition-all duration-300 text-2xl sm:text-3xl" />
+              <FaWhatsapp className="text-green-400 hover:scale-125 transition-all duration-300 text-2xl" />
             </a>
             <a href="https://facebook.com/tikbal" target="_blank" rel="noopener noreferrer">
-              <FaFacebookF className="text-blue-600 hover:scale-125 transition-all duration-300 text-2xl sm:text-3xl" />
+              <FaFacebookF className="text-blue-500 hover:scale-125 transition-all duration-300 text-2xl" />
             </a>
             <a href="https://instagram.com/tikbal" target="_blank" rel="noopener noreferrer">
-              <FaInstagram className="text-pink-500 hover:scale-125 transition-all duration-300 text-2xl sm:text-3xl" />
+              <FaInstagram className="text-pink-500 hover:scale-125 transition-all duration-300 text-2xl" />
             </a>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Stickers */}
-        <div className="w-full lg:w-[460px] h-[460px] relative">
-          {isDesktop ? (
+        {/* Sticker dinámico (animación o imagen) */}
+        <div className="w-full lg:w-[45%] flex items-center justify-center relative order-1 lg:order-2">
+          <button
+            onClick={goPrev}
+            className="absolute left-[-1.5rem] md:left-[-2rem] z-10 text-2xl text-gray-700 dark:text-white hover:text-gray-300 transition"
+          >
+            <IoIosArrowBack />
+          </button>
+
+          <AnimatePresence mode="wait">
             <motion.div
-              className="relative w-full h-full"
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 40, ease: 'linear' }}
+              key={current}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 1.2, ease: 'easeInOut' }}
+              className="w-80 h-80 sm:w-[350px] sm:h-[350px] rounded-xl shadow-lg flex items-center justify-center overflow-hidden"
+              style={{ background: stickerData[current].bg }}
             >
-              {stickerData.map(({ anim, bg }, i) => {
-                const angle = (i * 360) / stickerData.length;
-                const radius = 180;
-                const rad = (angle * Math.PI) / 180;
-                const x = radius * Math.cos(rad);
-                const y = radius * Math.sin(rad);
-
-                return (
-                  <div
-                    key={i}
-                    className="absolute w-40 h-40 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-full shadow-xl flex items-center justify-center"
-                    style={{
-                      background: bg,
-                      top: `calc(50% + ${y}px - 96px)`,
-                      left: `calc(50% + ${x}px - 96px)`,
-                    }}
-                  >
-                    <motion.div
-                      animate={{ rotate: -360 }}
-                      transition={{ repeat: Infinity, duration: 40, ease: 'linear' }}
-                      className="w-full h-full flex items-center justify-center"
-                    >
-                      <Lottie animationData={anim} loop className="w-full h-full" />
-                    </motion.div>
-                  </div>
-                );
-              })}
+              {stickerData[current].isImage ? (
+                <img
+                  src={stickerData[current].anim}
+                  alt="Sticker visual"
+                  className="object-contain w-full h-full" // ✅ Aquí el cambio
+                />
+              ) : (
+                <Lottie animationData={stickerData[current].anim} loop className="w-full h-full" />
+              )}
             </motion.div>
-          ) : (
-            <div className="grid grid-cols-2 gap-6 sm:gap-8 justify-items-center mt-4">
-              {stickerData.map(({ anim, bg }, i) => (
-                <div
-                  key={i}
-                  className="w-32 h-32 sm:w-36 sm:h-36 rounded-full shadow-xl flex items-center justify-center"
-                  style={{ background: bg }}
-                >
-                  <Lottie animationData={anim} loop className="w-full h-full" />
-                </div>
-              ))}
-            </div>
-          )}
+          </AnimatePresence>
+
+          <button
+            onClick={goNext}
+            className="absolute right-[-1.5rem] md:right-[-2rem] z-10 text-2xl text-gray-700 dark:text-white hover:text-gray-300 transition"
+          >
+            <IoIosArrowForward />
+          </button>
         </div>
       </div>
     </section>
