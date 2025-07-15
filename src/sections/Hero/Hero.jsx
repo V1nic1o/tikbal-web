@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import garden from '../../assets/animations/garden.json';
 import planting from '../../assets/animations/planting.json';
 import earth from '../../assets/animations/earth.json';
-import fondo from '../../assets/FONDO.jpg'; // ✅ Imagen del logo
+import fondo from '../../assets/FONDO.jpg'; // ✅ Imagen como sticker
 import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
@@ -19,25 +19,21 @@ export default function Hero() {
   const stickerData = [
     {
       anim: garden,
-      bg: '#DCFCE7',
       mensaje: 'Diseñamos jardines vivos y en armonía con la naturaleza.',
       isImage: false,
     },
     {
       anim: planting,
-      bg: '#FEF3C7',
       mensaje: 'Asesoramos en el cultivo orgánico y sostenible.',
       isImage: false,
     },
     {
-      anim: fondo, // ✅ Imagen como sticker
-      bg: '#DBEAFE',
+      anim: fondo,
       mensaje: 'Llevamos vida verde hasta la puerta de tu hogar o empresa.',
       isImage: true,
     },
     {
       anim: earth,
-      bg: '#F3E8FF',
       mensaje: 'Creamos un futuro más verde desde cada rincón del país.',
       isImage: false,
     },
@@ -66,7 +62,7 @@ export default function Hero() {
       className="relative min-h-screen w-full overflow-hidden font-sans bg-[#f7f7f7] dark:bg-[#0B1229] text-gray-900 dark:text-white"
     >
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-10 flex flex-col-reverse lg:flex-row items-center justify-center gap-10 pt-24 sm:pt-28 lg:pt-36 xl:pt-44">
-        
+
         {/* Texto principal */}
         <div className="w-full lg:w-[55%] text-left order-2 lg:order-1">
           <motion.h2
@@ -130,7 +126,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Sticker dinámico (animación o imagen) */}
+        {/* Sticker dinámico sin contenedor de fondo */}
         <div className="w-full lg:w-[45%] flex items-center justify-center relative order-1 lg:order-2">
           <button
             onClick={goPrev}
@@ -146,14 +142,13 @@ export default function Hero() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 1.2, ease: 'easeInOut' }}
-              className="w-80 h-80 sm:w-[350px] sm:h-[350px] rounded-xl shadow-lg flex items-center justify-center overflow-hidden"
-              style={{ background: stickerData[current].bg }}
+              className="w-80 h-80 sm:w-[350px] sm:h-[350px] flex items-center justify-center"
             >
               {stickerData[current].isImage ? (
                 <img
                   src={stickerData[current].anim}
                   alt="Sticker visual"
-                  className="object-contain w-full h-full" // ✅ Aquí el cambio
+                  className="object-contain w-full h-full"
                 />
               ) : (
                 <Lottie animationData={stickerData[current].anim} loop className="w-full h-full" />
